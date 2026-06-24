@@ -195,24 +195,25 @@ body {
 
 .hero__title {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 300;                     /* 500 → 300，纤细 */
+  font-style: italic;                   /* 斜体更飘 */
   font-size: clamp(2.8rem, 8vw, 6.5rem);
-  line-height: 1.04;
-  letter-spacing: 0.01em;
-  color: #fff;
-  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.55);
+  line-height: 1.1;
+  letter-spacing: 0.03em;               /* 字距拉开 */
+  color: rgba(255, 255, 255, 0.82);     /* 再透一档，不再死白 */
+  text-shadow: 0 2px 60px rgba(0, 0, 0, 0.35);  /* 阴影更柔更散 */
   opacity: 0;
   animation: fadeUp 1.6s var(--ease-soft) 0.45s forwards;
 }
 
 .hero__subtitle {
-  margin: 1.8rem auto 0;
+  margin: 2.4rem auto 0;
   max-width: 540px;
   font-size: clamp(1rem, 1.6vw, 1.2rem);
   font-weight: 300;
   font-style: italic;
-  color: var(--cyan-glow);
-  letter-spacing: 0.02em;
+  color: rgba(194, 236, 231, 0.7);      /* 更淡，往背景里退 */
+  letter-spacing: 0.1em;                /* 字距更开 */
   opacity: 0;
   animation: fadeUp 1.6s var(--ease-soft) 0.75s forwards;
 }
@@ -252,21 +253,28 @@ body {
   --pad-y: 0.95rem;
   display: inline-block;
   margin-top: 2.6rem;
-  padding: var(--pad-y) 2.6rem;
+  padding: var(--pad-y) 2.8rem;
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 0.78rem;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--forest-deep);
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-soft) 100%);
-  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.9);              /* 浅色字 */
+  background: rgba(255, 255, 255, 0.06);         /* 几乎透明的底 */
+  backdrop-filter: blur(4px);                    /* 毛玻璃，更精致 */
+  border: 1px solid rgba(255, 255, 255, 0.35);   /* 细边框 */
   border-radius: 2px;
   position: relative;
   overflow: hidden;
-  transition: transform 0.5s var(--ease-soft), box-shadow 0.5s var(--ease-soft);
-  box-shadow: 0 8px 30px rgba(255, 157, 77, 0.25);
+  transition: all 0.5s var(--ease-soft);
+  box-shadow: none;
+}
+.cta:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 157, 77, 0.15);           /* hover 时透出一点金鱼橙 */
+  border-color: rgba(255, 157, 77, 0.6);
+  box-shadow: 0 8px 30px rgba(255, 157, 77, 0.18);
 }
 .cta:hover {
   transform: translateY(-3px);
@@ -390,9 +398,17 @@ body {
   .hero { min-height: 540px; }
   .section { padding: 5rem 1.4rem; }
   .cta { padding: 0.85rem 2rem; letter-spacing: 0.2em; }
-  .hero__eyebrow { letter-spacing: 0.3em; }
+  .hero__eyebrow {
+  font-family: var(--font-body);
+  font-weight: 400;                     /* 600 → 400，不那么硬 */
+  text-transform: uppercase;
+  letter-spacing: 0.45em;
+  font-size: 0.72rem;
+  color: rgba(143, 212, 206, 0.65);     /* 更淡 */
+  margin-bottom: 1.6rem;
+  opacity: 0;
+  animation: fadeUp 1.4s var(--ease-soft) 0.2s forwards;
 }
-
 /* ============================================================
    REDUCED MOTION — respect the user's system preference.
    Stops the heavier ambient motion, keeps content fully visible.
@@ -416,4 +432,5 @@ body {
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 
   /* bubbles & particles are not injected at all in reduced-motion (see script.js) */
+}
 }
