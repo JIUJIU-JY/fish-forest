@@ -135,20 +135,16 @@ body {
   justify-content: center;
 }
 
-/* LAYER 1 — video, with a very slow "breathing" zoom */
+/* LAYER 1 — video, kept near-native scale so the generated detail stays crisp */
 .hero__video {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -8px;
+  width: calc(100% + 16px);
+  height: calc(100% + 16px);
   object-fit: cover;        /* fill, keep ratio, crop overflow */
   z-index: 1;
-  animation: breathe 24s var(--ease-soft) infinite alternate;
+  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
   will-change: transform;
-}
-@keyframes breathe {
-  from { transform: scale(1.02); }
-  to   { transform: scale(1.10); }
 }
 
 /* LAYER 2 — gradient mask: darker top & bottom for text legibility */
@@ -303,6 +299,27 @@ body {
   padding: clamp(6rem, 16vh, 12rem) 1.5rem;
   display: flex;
   justify-content: center;
+  overflow: hidden;                 /* contain the soft mood glows below */
+}
+
+/* Each section carries its own large, very-soft "mood glow" — depth, not
+   decoration. It sits behind the content and fades to transparent at the
+   edges, so neighbouring sections melt into one another with no hard seam. */
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* I — mist: a cool teal haze drifting near the top */
+#atmosphere::before {
+  background: radial-gradient(
+    ellipse 85% 60% at 50% 22%,
+    rgba(143, 212, 206, 0.08),
+    transparent 62%
+  );
 }
 .section__inner {
   max-width: 720px;
@@ -321,10 +338,13 @@ body {
 
 .section__title {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 300;                     /* match the hero: thin + airy */
+  font-style: italic;
   font-size: clamp(2rem, 5vw, 3.4rem);
-  line-height: 1.12;
-  color: #fff;
+  line-height: 1.14;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.82);     /* not dead white, sits in the haze */
+  text-shadow: 0 2px 50px rgba(0, 0, 0, 0.3);
   margin-bottom: 1.6rem;
 }
 .section__title--large { font-size: clamp(2.4rem, 6.5vw, 4.5rem); }
@@ -345,13 +365,25 @@ body {
   line-height: 1.5;
 }
 
-/* the motion section gets a subtle goldfish-tinted glow */
-.section--motion {
-  background: radial-gradient(
-    ellipse at 70% 30%,
-    rgba(255, 157, 77, 0.06),
-    transparent 60%
-  );
+/* II — goldfish: two warm, offset pools of orange light, drifting slowly
+   like a memory of fish passing through the trees */
+.section--motion::before {
+  background:
+    radial-gradient(
+      ellipse 55% 42% at 72% 32%,
+      rgba(255, 157, 77, 0.09),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 48% 40% at 26% 74%,
+      rgba(246, 192, 138, 0.06),
+      transparent 62%
+    );
+  animation: glowDrift 26s var(--ease-soft) infinite alternate;
+}
+@keyframes glowDrift {
+  from { transform: translate3d(-1.5%, 1%, 0)  scale(1.02); }
+  to   { transform: translate3d(2%, -1.5%, 0)  scale(1.08); }
 }
 
 .section--final {
@@ -359,6 +391,22 @@ body {
   align-items: center;
   min-height: 90vh;
   justify-content: center;
+}
+
+/* III — the close: a calm cyan pool holds the final words, and the floor of
+   the page deepens gently (not to black) so it still feels continuous above */
+.section--final::before {
+  background:
+    radial-gradient(
+      ellipse 70% 55% at 50% 40%,
+      rgba(143, 212, 206, 0.07),
+      transparent 66%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 28%,
+      rgba(4, 11, 8, 0.55) 100%
+    );
 }
 
 /* ============================================================
@@ -409,6 +457,8 @@ body {
   opacity: 0;
   animation: fadeUp 1.4s var(--ease-soft) 0.2s forwards;
 }
+}  /* end @media (max-width: 600px) */
+
 /* ============================================================
    REDUCED MOTION — respect the user's system preference.
    Stops the heavier ambient motion, keeps content fully visible.
@@ -418,6 +468,7 @@ body {
 
   .hero__video,
   .fog,
+  .section--motion::before,
   .hero__eyebrow,
   .hero__title,
   .hero__subtitle,
@@ -432,5 +483,4 @@ body {
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 
   /* bubbles & particles are not injected at all in reduced-motion (see script.js) */
-}
 }

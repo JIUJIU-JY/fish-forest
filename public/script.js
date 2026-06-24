@@ -121,7 +121,14 @@
         const depth = parseFloat(el.getAttribute("data-parallax")) || 0;
         const x = mouseX * depth * 100; // px
         const y = mouseY * depth * 100;
-        el.style.transform = `translate(${x}px, ${y}px)`;
+
+        if (el.classList.contains("hero__video")) {
+          el.style.setProperty("--parallax-x", `${x}px`);
+          el.style.setProperty("--parallax-y", `${y}px`);
+          return;
+        }
+
+        el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       });
       ticking = false;
     }
