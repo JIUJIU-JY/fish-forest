@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Forest Beneath the Water</title>
+
+    <!-- Display serif (Cormorant Garamond) + body sans (Nunito Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Nunito+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+
+  <body>
+    <!-- ================= AMBIENT LAYERS (fixed, behind everything) ================= -->
+    <!-- Drifting fog: three layers moving at different speeds -->
+    <div class="ambient" aria-hidden="true">
+      <div class="fog fog--1"></div>
+      <div class="fog fog--2"></div>
+      <div class="fog fog--3"></div>
+    </div>
+    <!-- Bubbles + glowing particles get injected here by script.js -->
+    <div class="bubbles" aria-hidden="true"></div>
+    <div class="particles" aria-hidden="true"></div>
+
+    <!-- ============================ 1. HERO ============================ -->
+    <header class="hero" id="top">
+      <!-- LAYER 1 — background video -->
+      <video
+        class="hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="/video/fish-forest-poster.png"
+        data-parallax="0.04"
+      >
+        <source src="/video/fish-forest-h264.mp4" type="video/mp4" />
+      </video>
+
+      <!-- LAYER 2 — dark gradient mask for legibility -->
+      <div class="hero__overlay"></div>
+
+      <!-- LAYER 3 — content -->
+      <div class="hero__content" data-parallax="-0.02">
+        <p class="hero__eyebrow">An immersive dream</p>
+        <h1 class="hero__title">The Forest Beneath the Water</h1>
+        <p class="hero__subtitle">
+          A quiet dream where trees breathe, goldfish drift, and silence becomes a tide.
+        </p>
+        <a class="cta" href="#atmosphere">
+          <span>Enter the Dream</span>
+        </a>
+      </div>
+
+      <!-- scroll hint -->
+      <div class="hero__scroll" aria-hidden="true">
+        <span class="hero__scroll-line"></span>
+      </div>
+    </header>
+
+    <!-- ============================ 2. ATMOSPHERE ============================ -->
+    <section class="section" id="atmosphere">
+      <div class="section__inner">
+        <p class="section__index reveal">I</p>
+        <h2 class="section__title reveal">A World Suspended in Mist</h2>
+        <p class="section__body reveal">
+          Between the trees, the air feels like water. Light moves slowly through the fog,
+          and every shadow seems to remember a forgotten dream.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================ 3. MOTION ============================ -->
+    <section class="section section--motion" id="motion">
+      <div class="section__inner">
+        <p class="section__index reveal">II</p>
+        <h2 class="section__title reveal">Goldfish in the Air</h2>
+        <p class="section__body reveal">
+          They do not swim through rivers, but through memory. Their orange bodies glow
+          softly against the green silence of the forest.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================ 4. FINAL ============================ -->
+    <section class="section section--final" id="final">
+      <div class="section__inner section__inner--center">
+        <p class="section__index reveal">III</p>
+        <h2 class="section__title section__title--large reveal">Stay a Little Longer</h2>
+        <p class="section__body section__body--quote reveal">
+          Some places are not found. They are remembered.
+        </p>
+        <a class="cta cta--ghost reveal" href="#top">
+          <span>Return to the Surface</span>
+        </a>
+      </div>
+
+      <footer class="footer">
+        <p>The Forest Beneath the Water — a quiet place to drift.</p>
+      </footer>
+    </section>
+
+    <script src="/script.js" defer></script>
+  </body>
+</html>
