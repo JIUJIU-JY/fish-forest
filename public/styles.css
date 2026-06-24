@@ -58,7 +58,7 @@ body {
   z-index: 5;
   overflow: hidden;
 }
-.ambient { z-index: 2; }   /* fog sits lowest of the ambient set */
+.ambient { z-index: 0; }   /* fog stays behind the hero video so it does not soften detail */
 
 /* --- drifting fog: large soft radial blobs sliding sideways --- */
 .fog {
@@ -138,13 +138,11 @@ body {
 /* LAYER 1 — video, kept near-native scale so the generated detail stays crisp */
 .hero__video {
   position: absolute;
-  inset: -8px;
-  width: calc(100% + 16px);
-  height: calc(100% + 16px);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;        /* fill, keep ratio, crop overflow */
   z-index: 1;
-  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
-  will-change: transform;
 }
 
 /* LAYER 2 — gradient mask: darker top & bottom for text legibility */
